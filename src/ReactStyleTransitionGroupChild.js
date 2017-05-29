@@ -13,6 +13,7 @@
 'use strict';
 
 var React = require('react');
+var ReactDOM = require('react-dom');
 
 var CSSPropertyOperations = require('react/lib/CSSPropertyOperations');
 var ReactTransitionEvents = require('react/lib/ReactTransitionEvents');
@@ -42,7 +43,7 @@ var ReactStyleTransitionGroupChild = React.createClass({
   },
 
   transition: function(animationType, finishCallback) {
-    var node = this.getDOMNode();
+    var node = ReactDOM.findDOMNode(this);
     var noEventTimeout = null;
 
     var transitionStyles = this.props.transitionStyles[animationType];
@@ -82,7 +83,7 @@ var ReactStyleTransitionGroupChild = React.createClass({
     if (this.isMounted()) {
       this.stylesQueue.forEach(
         function (styles) {
-          CSSPropertyOperations.setValueForStyles(this.getDOMNode(), styles);
+          CSSPropertyOperations.setValueForStyles(ReactDOM.findDOMNode(this), styles);
         }.bind(this)
       );
     }
